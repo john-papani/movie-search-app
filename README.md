@@ -50,21 +50,3 @@ It allows users to discover movies, TV series, and episodes using the **OMDb API
 
 5. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-## 📸 Screenshots
-
-(Add a screenshot or GIF of your app here)
-
-## 🔮 Future Improvements
-
-* ⭐ Favorites / Watchlist functionality
-* 🎚 Advanced filters (by year, genre, rating)
-* 🌙 Dark mode support
-* 📱 Enhanced mobile UI
-
-## 📜 License
-
-This project is licensed under the **MIT License**.
-
----
-
-👉 Do you want me to also add a **live demo link section** (for Vercel/Netlify deployment), so recruiters can test it right away?
