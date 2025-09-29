@@ -2,7 +2,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 
-function Searchbar({ setMoviesData, setLoading }) {
+function Searchbar({ setMoviesData, setLoading, setInitialLoad }) {
   const [query, setQuery] = useState("");
   const [type, setType] = useState(""); // filter type: "", "movie", "series", "episode"
 
@@ -19,6 +19,7 @@ function Searchbar({ setMoviesData, setLoading }) {
         setMoviesData(response.data);
       } finally {
         setLoading(false);
+        setInitialLoad(false);
       }
     }
     fetchMovies();
@@ -30,7 +31,7 @@ function Searchbar({ setMoviesData, setLoading }) {
         e.preventDefault();
         handleSubmit();
       }}
-      className="flex flex-col md:flex-row items-center gap-3 w-full max-w-xl mx-auto p-4 bg-gray-800 rounded-xl shadow-lg"
+      className="flex flex-col md:flex-row items-center gap-3 w-full lg:max-w-[40vw] mx-auto p-2 bg-gray-800 rounded-xl shadow-lg"
     >
       {/* Search Input */}
       <input
@@ -38,13 +39,13 @@ function Searchbar({ setMoviesData, setLoading }) {
         placeholder="Search for movies..."
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        className="flex-1 px-4 py-2 rounded-lg border border-gray-700 bg-gray-900 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+        className="flex-1 px-2 py-2 rounded-lg border border-gray-700 bg-gray-900 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
       />
 
       {/* Search Button */}
       <button
         type="submit"
-        className="px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition"
+        className="px-6 py-2 bg-blue-600 text-white rounded-lg text-base font-semibold hover:bg-blue-700 transition"
       >
         Search
       </button>
@@ -60,7 +61,7 @@ function Searchbar({ setMoviesData, setLoading }) {
             key={item.value || "all"}
             type="button"
             onClick={() => setType(item.value)}
-            className={`px-4 py-1 rounded-full text-sm font-medium transition-colors ${
+            className={`px-4 py-1 rounded-lg text-sm font-medium transition-colors ${
               type === item.value
                 ? "bg-orange-500 text-white shadow-md"
                 : "bg-gray-700 text-gray-200 hover:bg-gray-600"
