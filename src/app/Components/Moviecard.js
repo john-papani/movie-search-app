@@ -1,42 +1,38 @@
 import React from "react";
 import MovieModal from "./MovieModal";
 
-function Moviecard({ movieData }) {
-  const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
-
+function MovieCard({ movieData }) {
   const icons = {
     movie: "🎬",
     series: "📺",
   };
 
+  const poster =
+    !movieData.Poster || movieData.Poster === "N/A" || movieData.Poster === "Not Found"
+      ? "https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg"
+      : movieData.Poster;
+
   return (
-    <div className="border-2 border-gray-300 p-4 m-4 rounded-lg w-1/5 shadow-lg flex flex-col items-center justify-between">
-      <div className="flex flex-row items-center justify-around w-full">
-        {movieData.Poster === "N/A" ||
-        !movieData.Poster ||
-        movieData.Poster === "Not Found" ? (
-          <img
-            src={`https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg`}
-            alt="Placeholder Poster"
-            className="w-24 h-36 mb-2 object-cover"
-          />
-        ) : (
-          <img
-            src={movieData.Poster}
-            alt="Movie Poster"
-            className="w-24 h-36 mb-2 object-cover"
-          />
-        )}
-        <div className="text-center">
-          <p className="font-semibold italic">{movieData.Title} {icons[movieData.Type]}</p>
-          <p>{movieData.Year}</p>
-          {/* <p>{icons[movieData.Type]}</p> */}
-        </div>
+    <div className="bg-gray-800 text-white rounded-2xl shadow-lg p-4 flex flex-col items-center justify-between transition-transform duration-300 w-[45%] md:w-1/5 m-[2%] md:m-4">
+      {/* Poster */}
+      <img
+        src={poster}
+        alt={movieData.Title}
+        className="w-48 h-64 object-cover rounded-lg mb-4 shadow-md"
+      />
+
+      {/* Title & Info */}
+      <div className="text-center mb-4">
+        <h3 className="text-lg font-bold">{movieData.Title}</h3>
+        <p className="text-sm text-gray-300 flex items-center justify-center gap-1">
+          {icons[movieData.Type]} {movieData.Year}
+        </p>
       </div>
 
+      {/* Modal Button */}
       <MovieModal movieData={movieData} />
     </div>
   );
 }
 
-export default Moviecard;
+export default MovieCard;

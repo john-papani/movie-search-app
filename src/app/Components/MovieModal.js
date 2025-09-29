@@ -35,28 +35,28 @@ function MovieModal({ movieData }) {
           setIsOpen(true);
           searchMovie();
         }}
-        className="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center"
+        className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium shadow"
       >
-        See details
+        See Details
       </button>
 
       {isOpen && (
         <div
-          className="fixed inset-0 z-50 flex justify-center items-center bg-gray-900/70"
-          onClick={closeModal} // click outside closes modal
+          className="fixed inset-0 z-50 flex justify-center items-center bg-black/70 backdrop-blur-sm overflow-auto p-4"
+          onClick={closeModal}
         >
           <div
-            className="bg-white rounded-xl shadow-lg w-full max-w-3xl relative"
-            onClick={(e) => e.stopPropagation()} // prevent closing when clicking inside
+            className="bg-gray-900 text-white rounded-2xl shadow-2xl w-full max-w-3xl p-6 relative overflow-auto max-h-[75vh]"
+            onClick={(e) => e.stopPropagation()}
           >
             {/* Header */}
-            <div className="flex items-center justify-between p-4 border-b">
-              <h3 className="text-xl font-semibold mx-auto italic">
-                {movieDetails?.Title} {icons[movieData.Type] || "Loading..."}
+            <div className="flex items-center justify-between border-b border-gray-700 pb-2 mb-4">
+              <h3 className="text-xl sm:text-2xl font-bold mx-auto flex items-center gap-2">
+                {movieDetails?.Title || "Loading..."} {icons[movieData.Type] || ""}
               </h3>
               <button
                 onClick={closeModal}
-                className="absolute right-4 top-4 text-gray-400 hover:text-gray-900"
+                className="text-gray-400 hover:text-white text-lg font-bold absolute right-4 top-2"
               >
                 ✕
               </button>
@@ -65,74 +65,66 @@ function MovieModal({ movieData }) {
             {/* Body */}
             {loading ? (
               <div className="flex justify-center items-center p-10">
-                <div className="w-12 h-12 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
+                <div className="w-12 h-12 border-4 border-gray-600 border-t-blue-500 rounded-full animate-spin"></div>
               </div>
             ) : (
               movieDetails && (
-                <div className="p-4">
-                  <div className="flex flex-col md:flex-row gap-4">
-                    {/* Poster */}
-                    <div className="flex flex-col">
-                      {movieData.Poster === "N/A" ||
-                      !movieData.Poster ||
-                      movieData.Poster === "Not Found" ? (
-                        <img
-                          src={`https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg`}
-                          alt="Placeholder Poster"
-                          className="w-3/4 h-auto rounded-lg shadow"
-                        />
-                      ) : (
-                        <img
-                          src={movieData.Poster}
-                          alt="Movie Poster"
-                          className="w-full h-auto rounded-lg shadow"
-                        />
-                      )}
-
-                      <p className="pt-2">
-                        <strong>Released:</strong> {movieDetails.Released}
-                      </p>
-                    </div>
-                    {/* Details */}
-                    <div className="flex flex-col flex-1 space-y-2 text-sm md:text-base justify-between">
-                      <p className="text-justify">{movieDetails.Plot}</p>
-
-                      <p>
-                        <strong>Actors:</strong> {movieDetails.Actors}
-                      </p>
-                      <p>
-                        <strong>Runtime:</strong> {movieDetails.Runtime}
-                      </p>
-                      <p>
-                        <strong>Genre:</strong> {movieDetails.Genre}
-                      </p>
-                      <p>
-                        <strong>Language:</strong> {movieDetails.Language}
-                      </p>
-                      <p>
-                        <strong>Country:</strong> {movieDetails.Country}
-                      </p>
-                      <p>
-                        <strong>IMDb Rating:</strong> ⭐{" "}
-                        {movieDetails.imdbRating}
-                      </p>
-                    </div>
+                <div className="flex flex-col md:flex-row gap-6">
+                  {/* Poster */}
+                  <div className="flex flex-col items-center flex-shrink-0">
+                    <img
+                      src={
+                        !movieData.Poster || movieData.Poster === "N/A"
+                          ? "https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg"
+                          : movieData.Poster
+                      }
+                      alt="Poster"
+                      className="w-48 md:w-40 rounded-lg shadow-lg mb-2"
+                    />
+                    <p className="pt-2 text-gray-300 text-sm">
+                      <strong>Released:</strong> {movieDetails.Released}
+                    </p>
                   </div>
 
-                  {/* IMDb Button */}
-                  <button
-                    onClick={() =>
-                      window.open(
-                        `https://www.imdb.com/title/${movieDetails.imdbID}`,
-                        "_blank"
-                      )
-                    }
-                    className="mt-6 mx-auto block text-black bg-[#DEB522] hover:bg-[#0c0b00] hover:text-white transition-colors duration-300 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2"
-                  >
-                    Visit IMDb Website
-                  </button>
+                  {/* Details */}
+                  <div className="flex-1 flex flex-col gap-2 text-sm sm:text-base overflow-auto">
+                    <p className="text-justify">{movieDetails.Plot}</p>
+                    <p>
+                      <strong>Actors:</strong> {movieDetails.Actors}
+                    </p>
+                    <p>
+                      <strong>Runtime:</strong> {movieDetails.Runtime}
+                    </p>
+                    <p>
+                      <strong>Genre:</strong> {movieDetails.Genre}
+                    </p>
+                    <p>
+                      <strong>Language:</strong> {movieDetails.Language}
+                    </p>
+                    <p>
+                      <strong>Country:</strong> {movieDetails.Country}
+                    </p>
+                    <p>
+                      <strong>IMDb Rating:</strong> ⭐ {movieDetails.imdbRating}
+                    </p>
+                  </div>
                 </div>
               )
+            )}
+
+            {/* IMDb Button */}
+            {movieDetails && (
+              <button
+                onClick={() =>
+                  window.open(
+                    `https://www.imdb.com/title/${movieDetails.imdbID}`,
+                    "_blank"
+                  )
+                }
+                className="mt-4 sm:mt-6 mx-auto block bg-yellow-500 text-black px-5 py-2 rounded-lg font-medium hover:bg-yellow-600 hover:text-white transition-shadow shadow-md"
+              >
+                Visit IMDb Website
+              </button>
             )}
           </div>
         </div>
