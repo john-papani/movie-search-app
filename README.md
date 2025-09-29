@@ -1,7 +1,3 @@
-Here’s a clean and professional **README.md** draft for your **Movie Search App** 👇
-
----
-
 # 🎬 Movie Search App
 
 A simple and responsive movie search application built with **Next.js** and **React.js**.
