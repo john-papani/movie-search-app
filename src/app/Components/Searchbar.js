@@ -30,7 +30,7 @@ function Searchbar({ setMoviesData, setLoading }) {
         e.preventDefault();
         handleSubmit();
       }}
-      className="flex flex-col md:flex-row items-center gap-2"
+      className="flex flex-col md:flex-row items-center gap-3 w-full max-w-xl mx-auto p-4 bg-gray-800 rounded-xl shadow-lg"
     >
       {/* Search Input */}
       <input
@@ -38,19 +38,19 @@ function Searchbar({ setMoviesData, setLoading }) {
         placeholder="Search for movies..."
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        className="border p-2 rounded w-full md:w-64"
+        className="flex-1 px-4 py-2 rounded-lg border border-gray-700 bg-gray-900 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
       />
 
       {/* Search Button */}
       <button
         type="submit"
-        className="p-2 bg-blue-500 text-white rounded w-full md:w-auto"
+        className="px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition"
       >
         Search
       </button>
 
       {/* Toggle Filter Buttons */}
-      <div className="flex gap-2">
+      <div className="flex flex-wrap gap-2 mt-2 md:mt-0">
         {[
           { label: "All", value: "" },
           { label: "Movies 🎬", value: "movie" },
@@ -60,10 +60,10 @@ function Searchbar({ setMoviesData, setLoading }) {
             key={item.value || "all"}
             type="button"
             onClick={() => setType(item.value)}
-            className={`px-3 py-1 rounded text-xs font-medium transition-colors ${
+            className={`px-4 py-1 rounded-full text-sm font-medium transition-colors ${
               type === item.value
-                ? "bg-orange-600 text-white"
-                : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                ? "bg-orange-500 text-white shadow-md"
+                : "bg-gray-700 text-gray-200 hover:bg-gray-600"
             }`}
           >
             {item.label}
