@@ -4,7 +4,8 @@ import React, { useState } from "react";
 
 function Searchbar({ setMoviesData, setLoading, setInitialLoad }) {
   const [query, setQuery] = useState("");
-  const [type, setType] = useState(""); // filter type: "", "movie", "series", "episode"
+  const [type, setType] = useState(""); // filter type: "", "movie", "series"
+  const [year, setYear] = useState(""); // filter year
 
   const handleSubmit = () => {
     const cleanedQuery = query.trim();
@@ -14,7 +15,7 @@ function Searchbar({ setMoviesData, setLoading, setInitialLoad }) {
       setLoading(true);
       try {
         const response = await axios.get(
-          `https://www.omdbapi.com/?s=${cleanedQuery}&type=${type}&apikey=${process.env.NEXT_PUBLIC_OMDB_API_KEY}`
+          `https://www.omdbapi.com/?s=${cleanedQuery}&type=${type}&y=${year}&apikey=${process.env.NEXT_PUBLIC_OMDB_API_KEY}`
         );
         setMoviesData(response.data);
       } finally {
@@ -41,6 +42,26 @@ function Searchbar({ setMoviesData, setLoading, setInitialLoad }) {
         onChange={(e) => setQuery(e.target.value)}
         className="flex-1 px-2 py-2 rounded-lg border border-gray-700 bg-gray-900 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
       />
+
+      {/* Year Filter */}
+      <select
+        value={year}
+        onChange={(e) => {
+          setYear(e.target.value);
+          console.log(e.target.value);
+        }}
+        className="w-32 px-2 py-2 rounded-lg border border-gray-700 bg-gray-900 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+      >
+        <option value="">Any Year</option>
+        {Array.from({ length: 50 }, (_, i) => {
+          const yr = 2025 - i; // latest 50 years
+          return (
+            <option key={yr} value={yr}>
+              {yr}
+            </option>
+          );
+        })}
+      </select>
 
       {/* Search Button */}
       <button
